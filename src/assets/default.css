@@ -1,0 +1,14 @@
+:root {
+    --h-default-bgcolor: #f9f9f9;
+}
+html[data-theme='dark'] {
+    --h-default-bgcolor: #1a1a1a;
+    --text-color: #ddd;
+    --van-tabbar-background: #242424;
+    --van-tabbar-item-active-background: var(--van-tabbar-background);
+    --van-border-color: #222;
+    --van-background-2: #242424;
+    --van-cell-background: var(--van-background-2);
+    --van-text-color: rgba(255, 255, 255, .87);
+}
+

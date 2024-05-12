@@ -1,0 +1,37 @@
+//定义主题变量
+$themes: (
+  light: (
+    bgColor: #fff,
+    textColor: #000
+  ),
+  dark: (
+    bgColor: #000,
+    textColor: #fff
+  )
+);
+
+// 定义一个全局变量，初始当前主题模式
+$curTheme: light;
+
+// 使用 @mixin 混合，生成选择器
+@mixin useTheme () {
+  // 可以通过 @each 遍历循环，得到属性名和属性值
+  @each $key, $value in $themes {
+    // 将当前的主题赋值给全局变量，注意：需要在后面添加 !global，否则默认是局部变量
+    $curTheme: $key !global;
+    // 选择器后直接写 & 即可，& 表示使用这个混合的当前选择器
+    // 可以使用 #{} 进行插值，类似模板字符串
+    html[data-theme=#{$key}] & {
+      // 通过 @content; 表示通过插槽传递过来的内容，跟 vue 的插槽一样
+      @content;
+    }
+  }
+}
+
+// 定义 getVal 方法，通过传入的变量名，拿到对应的属性值
+@function getVal ($key) {
+  // 表示从 $themes 对象中获取 $curTheme 键对应的值
+  $themeMap: map-get($themes, $curTheme);
+  // 接着从 $themeMap 中找到当前传入 $key 键名对应的值
+  @return map-get($themeMap, $key);
+}
